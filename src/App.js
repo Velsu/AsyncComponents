@@ -2,16 +2,13 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import Home from "./components/Home";
-import About from "./components/About";
-import Contact from "./components/Contact";
+import AsyncComponent from "./components/AsyncComponent";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      route: "Home",
-      component: null
+      route: "Home"
     };
   }
 
@@ -20,11 +17,14 @@ class App extends Component {
   };
   render() {
     if (this.state.route === "Home") {
-      return <Home changeRoute={this.changeRoute} />;
+      const AsyncHome = AsyncComponent(() => import("./components/Home"));
+      return <AsyncHome changeRoute={this.changeRoute} />;
     } else if (this.state.route === "About") {
-      return <About changeRoute={this.changeRoute} />;
+      const AsyncAbout = AsyncComponent(() => import("./components/About"));
+      return <AsyncAbout changeRoute={this.changeRoute} />;
     } else {
-      return <Contact changeRoute={this.changeRoute} />;
+      const AsyncContact = AsyncComponent(() => import("./components/Contact"));
+      return <AsyncContact changeRoute={this.changeRoute} />;
     }
   }
 }
