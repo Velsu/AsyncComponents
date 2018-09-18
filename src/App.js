@@ -1,20 +1,31 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+
+import Home from "./components/Home";
+import About from "./components/About";
+import Contact from "./components/Contact";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      route: "Home",
+      component: null
+    };
+  }
+
+  changeRoute = route => {
+    this.setState({ route });
+  };
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+    if (this.state.route === "Home") {
+      return <Home changeRoute={this.changeRoute} />;
+    } else if (this.state.route === "About") {
+      return <About changeRoute={this.changeRoute} />;
+    } else {
+      return <Contact changeRoute={this.changeRoute} />;
+    }
   }
 }
 
